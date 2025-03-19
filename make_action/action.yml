@@ -13,11 +13,15 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Prepare Environment
       shell: bash
       run: |
         echo "MAKEFILE=${{ inputs.makefile }}" >> $GITHUB_ENV
         echo "COMMAND=${{ inputs.command }}" >> $GITHUB_ENV
+
     - name: Run Make Command
       shell: bash
       run: ./run.sh
