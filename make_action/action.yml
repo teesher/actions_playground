@@ -8,7 +8,7 @@ inputs:
   makefile:
     description: 'name of/path to Makefile (if not "Makefile")'
     required: false
-    default: ''
+    default: 'Makefile'
 
 runs:
   using: 'composite'
