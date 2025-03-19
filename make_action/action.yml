@@ -13,21 +13,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Display Environment Details (Before Checkout)
+    - name: Display Environment Details
       shell: bash
       run: |
-        ls -latr
-        echo $GITHUB_ACTION_PATH
-        echo "Current directory: $(pwd)" 
-
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-
-    - name: Display Environment Details (Post Checkout)
-      shell: bash
-      run: |
-        ls -latr
-        echo $GITHUB_ACTION_PATH
+        echo "Directory for current Action: $GITHUB_ACTION_PATH"
         echo "Current directory: $(pwd)" 
 
     - name: Prepare Environment
@@ -38,4 +27,4 @@ runs:
 
     - name: Run Make Command
       shell: bash
-      run: ./run.sh
+      run: $GITHUB_ACTION_PATH/run.sh
