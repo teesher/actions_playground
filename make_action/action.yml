@@ -1,0 +1,23 @@
+name: 'Run Make Command'
+description: 'run a make command'
+
+inputs:
+  command:
+    description: 'The make command to run'
+    required: true
+  makefile:
+    description: 'name of/path to Makefile (if not "Makefile")'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Prepare Environment
+      shell: bash
+      run: |
+        echo "MAKEFILE=${{ inputs.makefile }}" >> $GITHUB_ENV
+        echo "COMMAND=${{ inputs.command }}" >> $GITHUB_ENV
+    - name: Run Make Command
+      shell: bash
+      run: ./run.sh
