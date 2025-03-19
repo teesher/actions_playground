@@ -16,6 +16,10 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
+    - name: Display Environment Details
+      shell: bash
+      run: ls -latr
+
     - name: Prepare Environment
       shell: bash
       run: |
