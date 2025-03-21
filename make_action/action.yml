@@ -1,5 +1,5 @@
-name: 'Run Make Command'
-description: 'run a make command'
+name: "Run Make Command"
+description: "A template action to run make commands "
 
 inputs:
   command:
@@ -13,18 +13,20 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Display Environment Details
-      shell: bash
-      run: |
-        echo "Directory for current Action: $GITHUB_ACTION_PATH"
-        echo "Current directory: $(pwd)" 
-
     - name: Prepare Environment
       shell: bash
       run: |
         echo "MAKEFILE=${{ inputs.makefile }}" >> $GITHUB_ENV
         echo "COMMAND=${{ inputs.command }}" >> $GITHUB_ENV
+    
+    - name: Environment Check
+      shell: bash
+      run: |
+        if [ ! -f "$MAKEFILE" ]; then
+          echo "$MAKEFILE not found! Exiting. . ."
+          exit 1
+        fi
 
     - name: Run Make Command
       shell: bash
-      run: $GITHUB_ACTION_PATH/run.sh
+      run: make -f "$MAKEFILE" "$COMMAND"
